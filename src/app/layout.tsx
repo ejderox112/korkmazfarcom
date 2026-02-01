@@ -27,6 +27,22 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* BAKIM UYARISI - KALDIRILABİLİR */}
+        <div style={{
+          background: 'linear-gradient(90deg,#fbbf24,#f87171)',
+          color: '#222',
+          fontWeight: 600,
+          fontSize: '1.1rem',
+          textAlign: 'center',
+          padding: '14px 8px',
+          borderBottom: '2px solid #f87171',
+          zIndex: 9999,
+          position: 'relative',
+        }}>
+          Sitemiz <b>02.02.2026</b> tarihinden itibaren <b>bakım sürecindedir</b>.<br/>
+          <span style={{fontWeight:400}}>Hiçbir ürün ve aksesuar bu uyarı kaldırılmadan aktif fiyatta sunulamayacaktır.</span><br/>
+          <span style={{fontSize:'0.95em',fontWeight:400}}>Saygılarımız ile, <b>oxreklam</b></span>
+        </div>
         {children}
       </body>
     </html>
