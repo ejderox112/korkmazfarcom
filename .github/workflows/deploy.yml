@@ -1,0 +1,51 @@
+name: Build and Deploy to cPanel
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build and export
+        run: |
+          npm run build
+          npx next export -o out
+
+      - name: Create zip from out/
+        run: |
+          cd out
+          zip -r ../korkmazfar-full.zip .
+
+      - name: Upload zip via FTPS
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASS: ${{ secrets.FTP_PASSWORD }}
+          FTP_PATH: ${{ secrets.FTP_PATH }}
+        run: |
+          if [ -z "$FTP_HOST" ] || [ -z "$FTP_USER" ] || [ -z "$FTP_PASS" ]; then
+            echo "FTP secrets not set. Aborting upload." >&2; exit 1
+          fi
+          curl --ftp-create-dirs -T korkmazfar-full.zip "ftp://${FTP_HOST}/${FTP_PATH}/korkmazfar-full.zip" --user "${FTP_USER}:${FTP_PASS}" --ftp-ssl --silent --show-error
+
+      - name: Trigger remote unzip
+        env:
+          UNZIP_URL: ${{ secrets.UNZIP_URL }}
+        run: |
+          if [ -n "$UNZIP_URL" ]; then
+            echo "Triggering remote unzip: $UNZIP_URL"
+            curl -sS "$UNZIP_URL" || true
+          else
+            echo "UNZIP_URL not configured; skipping remote unzip"
+          fi

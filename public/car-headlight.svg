@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <rect width="120" height="120" fill="#e0e7ff"/>
+  <ellipse cx="60" cy="60" rx="40" ry="30" fill="#6366f1"/>
+  <ellipse cx="60" cy="60" rx="20" ry="15" fill="#fff"/>
+  <text x="60" y="110" text-anchor="middle" font-size="10" fill="#3730a3">Far</text>
+</svg>
