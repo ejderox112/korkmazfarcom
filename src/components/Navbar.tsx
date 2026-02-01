@@ -2,12 +2,17 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
+const AuthModal = dynamic(() => import("./AuthModal"), { ssr: false });
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const [favCount, setFavCount] = useState(0);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -15,12 +20,14 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // LocalStorage'dan sepet ve favori sayısını al
+  // LocalStorage'dan sepet ve favori sayısını al + kullanıcı durumu
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
     const favs = JSON.parse(localStorage.getItem("favorites") || "[]");
+    const savedUser = localStorage.getItem("user");
     setCartCount(cart.length);
     setFavCount(favs.length);
+    if (savedUser) setUser(JSON.parse(savedUser));
   }, []);
 
   return (
@@ -34,12 +41,12 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center">
-            <span className="text-white font-bold text-lg">KF</span>
+        {/* Logo - BÜYÜTÜLDÜ */}
+        <Link href="/" className="flex items-center gap-3">
+          <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center shadow-lg">
+            <span className="text-white font-bold text-2xl">KF</span>
           </div>
-          <span className="text-xl font-bold text-blue-900 dark:text-white hidden sm:block">
+          <span className="text-2xl font-bold text-blue-900 dark:text-white hidden sm:block">
             Korkmaz Far
           </span>
         </Link>
@@ -62,8 +69,33 @@ export default function Navbar() {
 
         {/* Icons */}
         <div className="flex items-center gap-4">
+          {/* Giriş/Kullanıcı */}
+          {user ? (
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-zinc-700 dark:text-zinc-200 hidden md:block">
+                {user.name}
+              </span>
+              <button
+                onClick={() => {
+                  localStorage.removeItem("user");
+                  setUser(null);
+                }}
+                className="text-xs text-red-600 hover:underline"
+              >
+                Çıkış
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => setAuthModalOpen(true)}
+              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition hidden md:block"
+            >
+              Giriş / Üye Ol
+            </button>
+          )}
+
           {/* Favoriler */}
-          <button className="relative p-2 rounded-full hover:bg-blue-100 dark:hover:bg-zinc-800 transition">
+          <Link href="/favoriler" className="relative p-2 rounded-full hover:bg-blue-100 dark:hover:bg-zinc-800 transition">
             <svg className="w-6 h-6 text-zinc-700 dark:text-zinc-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
             </svg>
@@ -72,10 +104,10 @@ export default function Navbar() {
                 {favCount}
               </span>
             )}
-          </button>
+          </Link>
 
           {/* Sepet */}
-          <button className="relative p-2 rounded-full hover:bg-blue-100 dark:hover:bg-zinc-800 transition">
+          <Link href="/sepet" className="relative p-2 rounded-full hover:bg-blue-100 dark:hover:bg-zinc-800 transition">
             <svg className="w-6 h-6 text-zinc-700 dark:text-zinc-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
@@ -84,7 +116,7 @@ export default function Navbar() {
                 {cartCount}
               </span>
             )}
-          </button>
+          </Link>
 
           {/* Mobile Menu Button */}
           <button
@@ -124,10 +156,32 @@ export default function Navbar() {
               <Link href="#iletisim" className="text-zinc-700 dark:text-zinc-200 hover:text-blue-600 transition font-medium py-2">
                 İletişim
               </Link>
+              {!user && (
+                <button
+                  onClick={() => {
+                    setAuthModalOpen(true);
+                    setMobileOpen(false);
+                  }}
+                  className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition"
+                >
+                  Giriş / Üye Ol
+                </button>
+              )}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={authModalOpen}
+        onClose={() => setAuthModalOpen(false)}
+        onAuthSuccess={(userData) => {
+          localStorage.setItem("user", JSON.stringify(userData));
+          setUser(userData);
+          setAuthModalOpen(false);
+        }}
+      />
     </motion.nav>
   );
 }

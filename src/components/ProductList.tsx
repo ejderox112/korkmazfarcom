@@ -25,10 +25,32 @@ const DUMMY_HEADLIGHTS: Headlight[] = [
   { id: 6, title: "Audi A4 B8 Komple Far", category: "Komple Far", model: "A4 B8", brand: "Audi", year: 2014, price: 6500, image: "/used-headlight.svg", geriAlan: "Çıkma", durum: "İkinci El" },
   { id: 7, title: "Toyota Corolla Sinyal Lambası", category: "Sinyal Lambası", model: "Corolla", brand: "Toyota", year: 2020, price: 850, image: "/new-headlight.svg", geriAlan: "Yan Sanayi", durum: "Yeni" },
   { id: 8, title: "Opel Astra J Far Kasası", category: "Far Kasası", model: "Astra J", brand: "Opel", year: 2013, price: 1800, image: "/used-headlight.svg", geriAlan: "Çıkma", durum: "İkinci El" },
+  { id: 9, title: "Fiat Egea Sol Komple Far", category: "Komple Far", model: "Egea", brand: "Fiat", year: 2018, price: 2200, image: "/new-headlight.svg", geriAlan: "Yan Sanayi", durum: "Yeni" },
+  { id: 10, title: "Peugeot 308 Sağ Far Camı", category: "Far Camı", model: "308", brand: "Peugeot", year: 2016, price: 1950, image: "/new-headlight.svg", geriAlan: "Orijinal", durum: "Yeni" },
+  { id: 11, title: "Nissan Qashqai Far Kasası", category: "Far Kasası", model: "Qashqai", brand: "Nissan", year: 2019, price: 3200, image: "/used-headlight.svg", geriAlan: "Çıkma", durum: "İkinci El" },
+  { id: 12, title: "Hyundai i20 Led Far Takımı", category: "Led Modül", model: "i20", brand: "Hyundai", year: 2021, price: 5400, image: "/new-headlight.svg", geriAlan: "Orijinal", durum: "Yeni" },
+  { id: 13, title: "Mazda 3 Xenon Ampulü", category: "Xenon Beyni", model: "Mazda3", brand: "Mazda", year: 2015, price: 750, image: "/new-headlight.svg", geriAlan: "Yan Sanayi", durum: "Yeni" },
+  { id: 14, title: "Seat Leon FR Far Camı Sol", category: "Far Camı", model: "Leon", brand: "Seat", year: 2017, price: 2800, image: "/new-headlight.svg", geriAlan: "Orijinal", durum: "Yeni" },
+  { id: 15, title: "Skoda Octavia Komple Far Set", category: "Komple Far", model: "Octavia", brand: "Skoda", year: 2014, price: 5200, image: "/used-headlight.svg", geriAlan: "Çıkma", durum: "İkinci El" },
+  { id: 16, title: "Honda Civic Far Kasası Sağ", category: "Far Kasası", model: "Civic", brand: "Honda", year: 2020, price: 2900, image: "/new-headlight.svg", geriAlan: "Yan Sanayi", durum: "Yeni" },
+  { id: 17, title: "Kia Sportage Sinyal Lambası", category: "Sinyal Lambası", model: "Sportage", brand: "Kia", year: 2018, price: 950, image: "/new-headlight.svg", geriAlan: "Yan Sanayi", durum: "Yeni" },
+  { id: 18, title: "Citroen C4 Cactus Far Camı", category: "Far Camı", model: "C4 Cactus", brand: "Citroen", year: 2016, price: 1650, image: "/new-headlight.svg", geriAlan: "Orijinal", durum: "Yeni" },
+  { id: 19, title: "Dacia Duster Sol Far", category: "Komple Far", model: "Duster", brand: "Dacia", year: 2019, price: 1950, image: "/used-headlight.svg", geriAlan: "Çıkma", durum: "İkinci El" },
+  { id: 20, title: "Volvo XC60 Xenon Beyni", category: "Xenon Beyni", model: "XC60", brand: "Volvo", year: 2017, price: 4800, image: "/new-headlight.svg", geriAlan: "Orijinal", durum: "Yeni" },
+  { id: 21, title: "Alfa Romeo Giulietta Far Kasası", category: "Far Kasası", model: "Giulietta", brand: "Alfa Romeo", year: 2015, price: 3100, image: "/used-headlight.svg", geriAlan: "Çıkma", durum: "İkinci El" },
+  { id: 22, title: "Suzuki Vitara Led Modül", category: "Led Modül", model: "Vitara", brand: "Suzuki", year: 2020, price: 3900, image: "/new-headlight.svg", geriAlan: "Yan Sanayi", durum: "Yeni" },
+  { id: 23, title: "Jeep Renegade Far Camı", category: "Far Camı", model: "Renegade", brand: "Jeep", year: 2018, price: 3400, image: "/new-headlight.svg", geriAlan: "Orijinal", durum: "Yeni" },
+  { id: 24, title: "Mini Cooper S Komple Far", category: "Komple Far", model: "Cooper S", brand: "Mini", year: 2016, price: 7200, image: "/used-headlight.svg", geriAlan: "Çıkma", durum: "İkinci El" },
+  { id: 25, title: "Mitsubishi ASX Sinyal Lambası", category: "Sinyal Lambası", model: "ASX", brand: "Mitsubishi", year: 2019, price: 1100, image: "/new-headlight.svg", geriAlan: "Yan Sanayi", durum: "Yeni" },
+  { id: 26, title: "Porsche Cayenne Xenon Set", category: "Xenon Beyni", model: "Cayenne", brand: "Porsche", year: 2015, price: 12500, image: "/new-headlight.svg", geriAlan: "Orijinal", durum: "Yeni" },
+  { id: 27, title: "Volkswagen Passat B8 Far Camı", category: "Far Camı", model: "Passat B8", brand: "Volkswagen", year: 2017, price: 3850, image: "/new-headlight.svg", geriAlan: "Orijinal", durum: "Yeni" },
+  { id: 28, title: "Ford Kuga Far Kasası Sol", category: "Far Kasası", model: "Kuga", brand: "Ford", year: 2019, price: 2750, image: "/used-headlight.svg", geriAlan: "Çıkma", durum: "İkinci El" },
+  { id: 29, title: "Mercedes E200 W212 Led Far", category: "Led Modül", model: "E Serisi W212", brand: "Mercedes", year: 2014, price: 8900, image: "/new-headlight.svg", geriAlan: "Orijinal", durum: "Yeni" },
+  { id: 30, title: "BMW X5 F15 Komple Far", category: "Komple Far", model: "X5 F15", brand: "BMW", year: 2016, price: 15200, image: "/used-headlight.svg", geriAlan: "Çıkma", durum: "İkinci El" },
 ];
 
 const categories = ["Far Camı", "Far Kasası", "Led Modül", "Xenon Beyni", "Sinyal Lambası", "Komple Far"];
-const brands = ["Volkswagen", "BMW", "Mercedes", "Audi", "Ford", "Renault", "Toyota", "Opel"];
+const brands = ["Volkswagen", "BMW", "Mercedes", "Audi", "Ford", "Renault", "Toyota", "Opel", "Fiat", "Peugeot", "Nissan", "Hyundai", "Mazda", "Seat", "Skoda", "Honda", "Kia", "Citroen", "Dacia", "Volvo", "Alfa Romeo", "Suzuki", "Jeep", "Mini", "Mitsubishi", "Porsche"];
 
 export default function ProductList() {
   const [data] = useState<Headlight[]>(DUMMY_HEADLIGHTS);
